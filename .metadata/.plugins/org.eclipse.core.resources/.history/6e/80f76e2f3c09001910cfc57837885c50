@@ -1,0 +1,12 @@
+INSERT INTO CATEGORY (ID, NAME) VALUES (1, 'Alimentos');
+INSERT INTO CATEGORY (ID, NAME) VALUES (2, 'Eletrodomésticos');
+INSERT INTO CATEGORY (ID, NAME) VALUES (3, 'Eletrodomésticos');
+
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (1, 'Arroz', 1);
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (2, 'Feijão', 1);
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (3, 'Aspirador de pó', 2);
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (4, 'Batedeira', 2);
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (5, 'Liquidificador', 2);
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (6, 'Sofá', 3);
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (7, 'Mesa', 3);
+insert INTO PRODUCT (ID, NAME, CATEGORY_ID) VALUES (8, 'Estante', 3);

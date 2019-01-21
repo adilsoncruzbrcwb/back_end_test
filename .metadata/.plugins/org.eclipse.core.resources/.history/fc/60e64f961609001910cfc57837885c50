@@ -1,0 +1,79 @@
+package br.com.bb.api;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.bb.model.Category;
+import br.com.bb.repository.CategoriaRepository;
+
+@RestController
+@RequestMapping("/category")
+public class CategoryApi {
+	
+	@Autowired
+	private CategoriaRepository categorias;
+	
+	@PostMapping
+	public Category adicionar(@Valid @RequestBody Category category) {
+		return categorias.save(category);
+	}
+	
+	@GetMapping("/listAll")
+	public List<Category> listar() {
+		return categorias.findAll();
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Category> buscar(@PathVariable Long id) {
+		Category category = categorias.findOne(id);
+		
+		if (category == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok(category);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Category> atualizar(@PathVariable Long id, 
+			@Valid @RequestBody Category category) {
+		Category existente = categorias.findOne(id);
+		
+		if (existente == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		BeanUtils.copyProperties(category, existente, "id");
+		
+		existente = categorias.save(existente);
+		
+		return ResponseEntity.ok(existente);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> remover(@PathVariable Long id) {
+		Category category = categorias.findOne(id);
+		
+		if (category == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		categorias.delete(category);
+		
+		return ResponseEntity.noContent().build();
+	}
+}
+
